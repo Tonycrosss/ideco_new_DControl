@@ -4,19 +4,21 @@ import jinja2
 import subprocess
 
 print('test')
+
+
 # функция пишет цифру 1, если галочка стоит
 def write_status(enabled):
-    f = open('log.txt', 'w', encoding='utf-8')
-    if enabled:
-        f.write('1')
-    else:
-        f.write('0')
+    with open('log.txt', 'w', encoding='utf-8') as f:
+        if enabled:
+            f.write('1')
+        else:
+            f.write('0')
 
 
 # функция читает log.txt и возвращает True, если enabled
 def read_status():
-    f = open('log.txt', 'r', encoding='utf-8')
-    return f.readline() == '1'
+    with open('log.txt', 'r', encoding='utf-8') as f:
+        return f.readline() == '1'
 
 
 # функция для вкл\выкл\перезапуска демона
