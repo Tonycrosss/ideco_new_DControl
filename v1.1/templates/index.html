@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daemon Control Panel</title>
+</head>
+<body>
+
+<h1>Статус: {% if status %} работает {% else %} не работает {% endif %}</h1>
+
+{% if action %}<h2>Last action: {{action}}</h2>{% endif %}
+
+<form method="POST">    
+    <input type='checkbox' id="toggle-form" name="form-toggle" onchange="this.form.submit()" {% if form_enabled %}checked{% endif %}>
+    <label for="toggle-form">Включить сервис изгнания демонов</label>
+    <br/><br/>
+    
+    <fieldset id="controls">
+        <legend>Daemon Control Panel</legend>
+            <input type="submit" id='start' value="Start" name="action" {% if form_enabled %}{% else %}disabled{% endif %} />
+            <p><input type="submit" id='stop' value="Stop" name ="action" {% if form_enabled %}{% else %}disabled{% endif %} /></p>
+            <input type="submit" id='reset' value="Reset" name="action" {% if form_enabled %}{% else %}disabled{% endif %} />
+    </fieldset>
+</form> 
+
+<style>
+    #controls {
+        width: 250px;
+        padding: 15px;
+    }
+
+    #controls input {
+        width: 100%;
+    }
+</style>
+</body>
+</html>
