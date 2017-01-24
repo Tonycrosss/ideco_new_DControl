@@ -6,6 +6,8 @@ import subprocess
 print('test')
 
 mypass = input('Enter your root password\n')
+
+
 # функция пишет цифру 1, если галочка стоит
 def write_status(enabled):
     with open('log.txt', 'w', encoding='utf-8') as f:
@@ -23,15 +25,20 @@ def read_status():
 
 # функция для вкл\выкл\перезапуска демона
 def demon_control(action):
-
     if action == "Stop":
-        subprocess.check_output('echo {}|sudo -S {}'.format(mypass, '/etc/init.d/minidlna stop'), shell=True)
+        subprocess.check_output(
+            'echo {}|sudo -S {}'.format(mypass, '/etc/init.d/minidlna stop'),
+            shell=True)
         print('Stopped!\n')
     elif action == "Start":
-        subprocess.check_output('echo {}|sudo -S {}'.format(mypass, '/etc/init.d/minidlna start'), shell=True)
+        subprocess.check_output(
+            'echo {}|sudo -S {}'.format(mypass, '/etc/init.d/minidlna start'),
+            shell=True)
         print('Started!\n')
     elif action == "Restart":
-        subprocess.check_output('echo {}|sudo -S {}'.format(mypass, '/etc/init.d/minidlna restart'), shell=True)
+        subprocess.check_output(
+            'echo {}|sudo -S {}'.format(mypass,'/etc/init.d/minidlna restart'),
+            shell=True)
         print('Restarted!\n')
 
 
