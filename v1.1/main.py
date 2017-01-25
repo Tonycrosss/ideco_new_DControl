@@ -2,8 +2,11 @@ from aiohttp import web
 import aiohttp_jinja2
 import jinja2
 import subprocess
+import logging
 
-print('test')
+logger = logging.getLogger('log')
+format = "%(asctime)s [%(levelname)s] %(message)s"
+logging.basicConfig(format=format, level=logging.INFO)
 
 mypass = input('Enter your root password\n')
 
@@ -29,17 +32,17 @@ def demon_control(action):
         subprocess.check_output(
             'echo {}|sudo -S {}'.format(mypass, '/etc/init.d/minidlna stop'),
             shell=True)
-        print('Stopped!\n')
+        logger.info("Stopped!\n")
     elif action == "Start":
         subprocess.check_output(
             'echo {}|sudo -S {}'.format(mypass, '/etc/init.d/minidlna start'),
             shell=True)
-        print('Started!\n')
+        logger.info("Started!\n")
     elif action == "Restart":
         subprocess.check_output(
             'echo {}|sudo -S {}'.format(mypass,'/etc/init.d/minidlna restart'),
             shell=True)
-        print('Restarted!\n')
+        logger.info("Restarted!\n")
 
 
 # функция определяет статус демона (работает или нет)
@@ -76,4 +79,7 @@ app.router.add_route('GET', '/', handler)
 app.router.add_route('POST', '/', action_handler)
 aiohttp_jinja2.setup(app,
                      loader=jinja2.FileSystemLoader('./templates'))
-web.run_app(app)
+
+if __name__ == '__main__':
+    logger.info("Localhost server started!\n")
+    web.run_app(app)
